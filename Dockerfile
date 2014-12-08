@@ -1,0 +1,1 @@
+#Dockerfile container to automate building mastercore on ubuntu
