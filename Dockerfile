@@ -1,5 +1,5 @@
 # Dockerfile to automate building mastercore on ubuntu
-FROM phusion/baseimage:0.9.15
+FROM ubuntu:14.04
 MAINTAINER squarestreamio
 
 ENV HOME /root
