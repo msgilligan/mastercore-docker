@@ -15,6 +15,7 @@ CMD ["/sbin/my_init"]
 
 # Mastercore Build Instructions Go Here
 RUN { \
+  apt-get update; \
   add-apt-repository "deb http://us.archive.ubuntu.com/ubuntu/ oldstable main" ; \
   apt-get update; \
   apt-get install python-software-properties; \
