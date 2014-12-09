@@ -39,7 +39,7 @@ RUN git clone https://github.com/mastercoin-MSC/mastercore.git
 # Now what? Oh.. Right.. Let's build it! BUILDDDDD ITTTTTT! READY, GO.
 RUN ./mastercore/autogen.sh
 RUN ./mastercore/configure
-RUN ./mastercore/make
+RUN make
 
 # Phew.. Ok, so now we have built Mastercoin and surprise surprise, we now need to 
 # download a FREAKING TORRENT CLIENT so that we can download the ENTIRE Bitcoin Blockchain. 
