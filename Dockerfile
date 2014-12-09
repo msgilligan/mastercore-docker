@@ -20,7 +20,7 @@ RUN { \
   apt-get install python-software-properties; \
   add-apt-repository ppa:bitcoin/bitcoin; \
   apg-get update; \
-  apt-get install -y git build-essential libtool autotools-dev autoconf libssl-dev libboost-all-dev libboost1.53-all-dev; \
+  apt-get install -y git build-essential libtool autotools-dev autoconf libssl-dev libboost-all-dev libdb4.8-dev libdb4.8++-dev; \
 }
 
 # Let's clean up APT when done
