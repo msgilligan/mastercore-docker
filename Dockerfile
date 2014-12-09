@@ -16,9 +16,7 @@ CMD ["/sbin/my_init"]
 # Mastercore Build Instructions Go Here
 RUN { \
   apt-get update; \
-  add-apt-repository "deb http://us.archive.ubuntu.com/ubuntu/ oldstable main" ; \
-  apt-get update; \
-  apt-get install python-software-properties; \
+  apt-get install software-properties-common; \
   add-apt-repository ppa:bitcoin/bitcoin; \
   apg-get update; \
   apt-get install -y git build-essential libtool autotools-dev autoconf libssl-dev libboost-all-dev libdb4.8-dev libdb4.8++-dev; \
