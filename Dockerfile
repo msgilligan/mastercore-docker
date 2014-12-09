@@ -25,7 +25,7 @@ RUN { \
   apt-get install software-properties-common; \
   add-apt-repository ppa:bitcoin/bitcoin; \
   apt-get update; \
-  apt-get install -y git pkg-config build-essential libtool autotools-dev autoconf libssl-dev libboost-all-dev libdb4.8-dev libdb4.8++-dev; \
+  apt-get install -y git pkg-config hexdump build-essential libtool autotools-dev autoconf libssl-dev libboost-all-dev libdb4.8-dev libdb4.8++-dev; \
 }
 
 # Now we clean up APT temporary files because cleanliness is next to Bitcoininess (sp?)
