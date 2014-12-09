@@ -1,12 +1,23 @@
 # This Dockerfile does a few things
-# 1. Makes Ubuntu sound for building and running daemons from source in a Docker container (credit: phusion @ github)
+# 1. Makes Ubuntu sound for building and running nonsense from source in a Docker container
 # 2. Adds the Mastercoin & Bitcoin required Repos and uses apt-get to install dependencies
 # 3. Automates the headless Mastercoin build process
-# 4. Creates cronjobs that fail and restart elegantly
+# 4. Creates a termination script for transmission-cli once it's done downloading the blockchain
+# 5. Installs transmission-cli, downloads the blockchain via torrent
+# 6. Removes termination script & issues apt-get remove transmission-cli to clean up
+# 7. Change RPC server command from #server=0 to server=1
+# 8. Run bitcoind getinfo. Output sent to file bitcoind_getinfo.result
+# 9. 
+# 5. Creates cronjobs that fail and restart elegantly
 
 # Here we pick the base image we are going to use to install Mastercoin on and issue commands for phusion scripts to make Ubuntu sane for Docker
 FROM ubuntu:14.04
 MAINTAINER phusion@github
+
+# Patches a bug in Docker (https://github.com/dotcloud/docker/issues/2267)
+# The workaround involves modifying a system library, libnss_files.so.2, so that it 
+# looks for the host file in /etc/workaround-docker-2267/hosts instead of /etc/hosts.
+RUN /usr/bin/workaround-docker-2267
 
 ENV HOME /root
 RUN mkdir /build
@@ -25,7 +36,20 @@ RUN { \
   apt-get install software-properties-common; \
   add-apt-repository ppa:bitcoin/bitcoin; \
   apt-get update; \
-  apt-get install -y git pkg-config bsdmainutils build-essential libtool autotools-dev autoconf libssl-dev libboost-all-dev libdb4.8-dev libdb4.8++-dev; \
+  apt-get install libssl-dev; \
+  apt-get install libdb4.8; \
+  apt-get libboost-all-dev; \
+  apt-get libminiupnpc-dev; \
+  apt-get libqtgui4; \ 
+  apt-get libprotobuf8; \
+  apt-get libqrencode3; \
+  apt-get git; \
+  apt-get pkg-config; \
+  apt-get bsdmainutils; \
+  apt-get build-essential; \
+  apt-get libtool; \
+  apt-get autotools-dev; \
+  apt-get autoconf ; \
 }
 
 # Now we clean up APT temporary files because cleanliness is next to Bitcoininess (sp?)
@@ -37,8 +61,9 @@ RUN git clone https://github.com/mastercoin-MSC/mastercore.git
 
 # Ok great, we've downloaded the most recent version of Mastercoin from Github. Still stuff to do.. Hmm..
 # Now what? Oh.. Right.. Let's build it! BUILDDDDD ITTTTTT! READY, GO.
-RUN ./mastercore/autogen.sh
-RUN ./mastercore/configure
+RUN mastercore/autogen.sh
+RUN mastercore/configure
+RUN cd mastercore/
 RUN make
 
 # Phew.. Ok, so now we have built Mastercoin and surprise surprise, we now need to 
@@ -65,3 +90,17 @@ RUN transmission-cli -w ~/.bitcoin -f /killme_already.sh http://torcache.net/tor
 # Ok, so we've downloaded the blockchain. Now we remove the unholy and unnecessary remnants of that nonsense..
 RUN rm /killme_already.sh
 RUN apt-get remove transmission-cli
+
+# Ok, whatever. It's 2:50am. Now we're going to make it possible to issue RPC commands using 'sed' Whoopeeee!!
+# 
+RUN sed -i .bak 's/#server=0/server=1/' ~/.bitcoin/bitcoin.conf
+
+# That didn't take too long. We're getting the hang of this! Now we're going to see if the previous
+# step actually worked. Additionally, because I just figured out how to do it, we're going 
+# to save the output to a file called bitcoind_getinfo.result because why not? I mean, 
+RUN cd src/
+RUN ./bitcoind getinfo > bitcoind_getinfo.result
+
+# Now we start Mastercore ./bitcoind. A first time run will take approximately 10-15 minutes
+RUN cd src/
+RUN ./bitcoind
