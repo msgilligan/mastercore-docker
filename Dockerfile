@@ -7,8 +7,7 @@
 # 6. Removes termination script & issues apt-get remove transmission-cli to clean up
 # 7. Change RPC server command from #server=0 to server=1
 # 8. Run bitcoind getinfo. Output sent to file bitcoind_getinfo.result
-# 9. 
-# 5. Creates cronjobs that fail and restart elegantly
+# 9. [TODO] Add cron jobs and nonsense like that..
 
 # Here we pick the base image we are going to use to install Mastercoin on and issue commands for phusion scripts to make Ubuntu sane for Docker
 FROM ubuntu:14.04
