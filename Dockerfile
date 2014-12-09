@@ -18,7 +18,7 @@ RUN { \
   apt-get update; \
   apt-get install software-properties-common; \
   add-apt-repository ppa:bitcoin/bitcoin; \
-  apg-get update; \
+  apt-get update; \
   apt-get install -y git build-essential libtool autotools-dev autoconf libssl-dev libboost-all-dev libdb4.8-dev libdb4.8++-dev; \
 }
 
