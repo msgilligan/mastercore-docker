@@ -1,3 +1,4 @@
+# TO BUILD: $ docker build -t mastercore github.com/squarestreamio/mastercore-docker.git
 # This Dockerfile does a few things
 # 1. Makes Ubuntu sound for building and running nonsense from source in a Docker container
 # 2. Adds the Mastercoin & Bitcoin required Repos and uses apt-get to install dependencies
