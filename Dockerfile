@@ -25,16 +25,30 @@ RUN { \
   apt-get install software-properties-common; \
   add-apt-repository ppa:bitcoin/bitcoin; \
   apt-get update; \
-  apt-get install -y git pkg-config bsdmainutils build-essential libtool autotools-dev autoconf libssl-dev libboost-all-dev libdb4.8-dev libdb4.8++-dev; \
+  apt-get install -y git wget pkg-config bsdmainutils build-essential libtool 
+  autotools-dev autoconf libssl-dev libboost-all-dev libdb4.8-dev libdb4.8++-dev; \
 }
 
 # Now we clean up APT temporary files because cleanliness is next to Bitcoininess (sp?)
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Now let's go ahead and use git to clone the Mastercoin repo over at Github (from: mscore-0.0.8/README.md)
+# Once cloned from the Mastercoin repo, the files will be in the ~/Mastercore directory or something..
 RUN git clone https://github.com/mastercoin-MSC/mastercore.git
 
-# Ok great, we've downloaded the most recent version of Mastercoin from Github. Now what? Oh.. Right.. Let's build it.
+# Ok great, we've downloaded the most recent version of Mastercoin from Github. Still stuff to do.. Hmm..
+# Now what? Oh.. Right.. Let's build it! BUILDDDDD ITTTTTT! READY, GO.
 RUN ./mastercore/autogen.sh
 RUN ./mastercore/configure
 RUN ./mastercore/make
+
+# Phew.. Ok, so now we have built Mastercoin and surprise surprise, we now need to 
+# download a FREAKING TORRENT CLIENT so that we can download the ENTIRE Bitcoin Blockchain. 
+# Why? BECAUSE BITCOIN.
+RUN apt-get install transmission-cli
+
+# Got the Torrent client installed? Niceeeeeee. Now we have to download the Blockchain.  
+# We're going to grab the magnet link signed by the Famous Jeff Garzik (http://gtf.org/garzik/bitcoin/bootstrap.txt)
+RUN wget http://gtf.org/garzik/bitcoin/bootstrap.txt
+
+https://bitcoin.org/bin/blockchain/bootstrap.dat.torrent
