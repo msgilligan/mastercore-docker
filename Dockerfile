@@ -34,7 +34,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 # Now let's go ahead and use git to clone the Mastercoin repo over at Github (from: mscore-0.0.8/README.md)
 RUN git clone https://github.com/mastercoin-MSC/mastercore.git
 
-# Ok great, we've downloaded the most recent version of Mastercoin from Github. Now what? Oh.. Right..
+# Ok great, we've downloaded the most recent version of Mastercoin from Github. Now what? Oh.. Right.. Let's build it.
 RUN ./mastercore/autogen.sh
 RUN ./mastercore/configure
 RUN ./mastercore/make
