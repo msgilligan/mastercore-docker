@@ -4,7 +4,7 @@
 # 3. Automates the headless Mastercoin build process
 # 4. Creates cronjobs that fail and restart elegantly
 
-# Here we pick the base image we are going to use to install Mastercoin on..
+# Here we pick the base image we are going to use to install Mastercoin on and issue commands for phusion scripts to make Ubuntu sane for Docker
 FROM ubuntu:14.04
 MAINTAINER phusion@github
 
