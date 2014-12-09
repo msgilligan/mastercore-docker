@@ -1,6 +1,6 @@
 # Dockerfile to automate building mastercore on ubuntu
 FROM ubuntu:14.04
-MAINTAINER squarestreamio
+MAINTAINER squarestreamio & phusion@github
 
 ENV HOME /root
 RUN mkdir /build
@@ -19,8 +19,10 @@ RUN { \
   apt-get install software-properties-common; \
   add-apt-repository ppa:bitcoin/bitcoin; \
   apt-get update; \
-  apt-get install -y git build-essential libtool autotools-dev autoconf libssl-dev libboost-all-dev libdb4.8-dev libdb4.8++-dev; \
+  apt-get install -y git pkg-config build-essential libtool autotools-dev autoconf libssl-dev libboost-all-dev libdb4.8-dev libdb4.8++-dev; \
 }
 
 # Let's clean up APT when done
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Now let's 
