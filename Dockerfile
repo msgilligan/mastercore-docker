@@ -13,11 +13,6 @@
 FROM ubuntu:14.04
 MAINTAINER phusion@github
 
-# Patches a bug in Docker (https://github.com/dotcloud/docker/issues/2267)
-# The workaround involves modifying a system library, libnss_files.so.2, so that it 
-# looks for the host file in /etc/workaround-docker-2267/hosts instead of /etc/hosts.
-RUN /usr/bin/workaround-docker-2267
-
 ENV HOME /root
 RUN mkdir /build
 ADD . /build
