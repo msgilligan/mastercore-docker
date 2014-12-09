@@ -35,6 +35,6 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN git clone https://github.com/mastercoin-MSC/mastercore.git
 
 # Ok great, we've downloaded the most recent version of Mastercoin from Github. Now what? Oh.. Right..
-RUN ./autogen.sh
-RUN ./configure
+RUN ./mastercore/autogen.sh
+RUN ./mastercore/configure
 RUN make
