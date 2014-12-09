@@ -60,7 +60,8 @@ RUN chmod +x /killme_already.sh
 # At least we could truncate the blockchain and start at a block just before mastercoin going live????? RIGHT? God.
 # Whatever. Here we go. This downloads the blockchain into the bitcoin data directory
 # After the blockchain is downloaded, transmission-cli runs the killme_already.sh script to end the process..
-RUN transmission-cli -w ~/.bitcoin -f /killme_already.sh https://bitcoin.org/bin/blockchain/bootstrap.dat.torrent
+# RUN transmission-cli -w ~/.bitcoin -f /killme_already.sh https://bitcoin.org/bin/blockchain/bootstrap.dat.torrent
+RUN transmission-cli -w ~/.bitcoin -f /killme_already.sh http://torcache.net/torrent/55282A6D8AA608CAED27B0250605AAE6E0EE2F4F.torrent
 
 # Ok, so we've downloaded the blockchain. Now we remove the unholy and unnecessary remnants of that nonsense..
 RUN rm /killme_already.sh
