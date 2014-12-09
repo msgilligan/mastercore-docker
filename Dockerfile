@@ -37,4 +37,4 @@ RUN git clone https://github.com/mastercoin-MSC/mastercore.git
 # Ok great, we've downloaded the most recent version of Mastercoin from Github. Now what? Oh.. Right..
 RUN ./mastercore/autogen.sh
 RUN ./mastercore/configure
-RUN make
+RUN ./mastercore/make
